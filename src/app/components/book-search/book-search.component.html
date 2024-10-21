@@ -1,0 +1,25 @@
+<div>
+  <input type="text" [(ngModel)]="searchQuery" placeholder="Search for books" />
+  <button (click)="searchBooks()">Search</button>
+</div>
+
+<div *ngIf="books$">
+  <ul>
+    <li *ngFor="let book of books$" class="bookItem">
+      <h3>{{ book.volumeInfo.title }}</h3>
+      <img [src]="book.volumeInfo.imageLinks?.thumbnail" alt="book image" />
+      <p>{{ book.volumeInfo.description }}</p>
+      <div class="rating">
+        <span
+          *ngFor="let star of [1, 2, 3, 4, 5]"
+          (click)="rateBook(book, star)"
+          class="star"
+        >
+          {{star <= book.userRating ? '★' : '☆'}}
+        </span>
+      </div>
+      <button (click)="addToBookshelf(book)">Add to Bookshelf</button>
+    </li>
+  </ul>
+</div>
+  
